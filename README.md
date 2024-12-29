@@ -224,7 +224,7 @@ Response: JSON data with shape parameters.
 ## 4. Shape Configuration
 Shapes are loaded from JSON files and each have configurations accroding to there unique parameters below is the circle JSON
 
- ```javascript
+ ```JSON
 {
   "shape": "circle",
   "coordinates": [0, 0, 0],
