@@ -10,13 +10,7 @@ using LinearAlgebra
 function parse_input_to_json(input_str::String)
     # We expect patterns like:
     #   "<shape> <numbers...> on <plane> at (x,y,z)"
-    #
-    # Examples:
-    #   "rectangle 4 6 on YZConstructionPlane at (1,2,0)"
-    #   "ellipse major 10 minor 5 on ZXConstructionPlane at (2,3,1)"
-    #   "triangle 3 4 5 on XYConstructionPlane at (0,1,1)"
-    #   "circle 5 on XZConstructionPlane at (1,1,1)"  (not in your examples, but logical)
-    #
+
     # We'll do a simple approach. Real-world usage might need robust parsing or regex.
     
     # Split into tokens
