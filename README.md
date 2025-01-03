@@ -12,6 +12,8 @@ Main interface
 
 
 Selection View
+<img width="1680" alt="Ekran Resmi 2025-01-03 10 22 57" src="https://github.com/user-attachments/assets/776fe78d-fbff-4c4c-80e2-a8327490fb32" />
 
 
 Main canvas for design
+<img width="1680" alt="Ekran Resmi 2025-01-03 10 23 44" src="https://github.com/user-attachments/assets/b7d1f764-8164-4a84-be3c-02f49801787a" />
