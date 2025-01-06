@@ -2,6 +2,10 @@
 
 Welcome to this repository created for the Parametrix tool. Parametrix teaches parametric designing by combining an approachable, simple to use pixel art design and the Fusion 360 API. Below are the Javascript and Python docs for the Parametrix tool
 
+#### Further Details
+
+This is a completely open source project so if you want to add something or make a suggestion just send a pull up request.)
+
 ### Description
 
 Parametric design is a transformative approach in Computer-Aided Design (CAD) where geometry adapts dynamically based on user-defined parameters. Despite its powerful applications in digital fabrication, learning parametric design remains a challenge for beginners due to complex tools and steep learning curves.
