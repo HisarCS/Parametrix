@@ -92,6 +92,3 @@ if __name__ == "__main__":
 
 - Starts the Flask application with debugging enabled on port 5001.
 
-## Conclusion
-
-This Flask application demonstrates the integration of advanced machine learning models with web technology to handle and respond to user commands in a structured manner. The setup allows for dynamic interaction with the AI model and a straightforward method for storing and retrieving the processed data.
