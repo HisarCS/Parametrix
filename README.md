@@ -1,5 +1,25 @@
+<h1 align="center">Parametrix</h1>
+<p align="center">
+  <i>Parametrix is an intuitive service for organizing your homepage. Customize Parametrix to your individual needs and work even more efficiently!</i>
+  <br/><br/>
+<img width="250" alt="Screenshot 2025-01-07 at 19 20 47" src="https://github.com/user-attachments/assets/8b00dfb3-efb5-4c76-9230-70937b65b232" />
+  <br/><br/>
+  <b> <b><a href="https://github.com/HisarCS/Parametrix/tree/main/OpenSourceDocs">Documentation</a></b> | <b><a href="https://github.com/HisarCS">GitHub</a></b>
+  <br/><br/>
+  <a href="https://github.com/HisarCS/Parametrix/blob/main/CHANGELOG.md">
+    <img src="https://img.shields.io/badge/Version-v0.0.2-609966?logo=hackthebox&logoColor=fff" alt="Current Version"/>
+  </a>
+  <a target="_blank" href="https://github.com/HisarCS/Parametrix">
+    <img src="https://img.shields.io/github/last-commit/HisarCS/Parametrix?logo=github&color=609966&logoColor=fff" alt="Last commit"/>
+  </a>
+  <a href="https://github.com/HisarCS/Parametrix/blob/main/LICENSE">
+    <img src="https://img.shields.io/badge/License-MIT-609966?logo=opensourceinitiative&logoColor=fff" alt="License MIT"/>
+  </a>
+  <br/><br/>
+</p>
 
-# Parametrix
+
+
 
 
 ####  Welcome👋
