@@ -9,7 +9,7 @@ import re
 os.environ["WANDB_DISABLED"] = "true"
 
 # Model setup
-token = "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"
+token = "[ACSESS TOKEN]"
 model_name = "fine_tuned_model"
 tokenizer = AutoTokenizer.from_pretrained(model_name, token=token)
 model = AutoModelForSeq2SeqLM.from_pretrained(model_name, token=token)
