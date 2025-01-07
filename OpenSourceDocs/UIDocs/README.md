@@ -4,10 +4,6 @@
 
 This is the explanation for the UI code of the project mainly written in Javascript & React
 
-## Introduction
-
-This document outlines the build process for the user interface of the project, using React.
-
 ## Prerequisites
 
 Ensure you have Node.js and npm installed. A code editor like VS Code is recommended for editing the project files.
