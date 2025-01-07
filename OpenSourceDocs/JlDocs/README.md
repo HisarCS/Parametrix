@@ -12,10 +12,10 @@ This document provides an in-depth look at a Julia script designed to process te
 
 ## Modules and Dependencies
 
-\```julia
+```julia
 using JSON
 using LinearAlgebra
-\```
+```
 
 - **JSON**: Handles JSON data structures, enabling the parsing and serialization of structured data.
 - **LinearAlgebra**: Used for performing mathematical operations essential for geometric transformations.
@@ -24,7 +24,7 @@ using LinearAlgebra
 
 ### Function: Parse Command Strings into JSON
 
-\```julia
+```julia
 function parse_input_to_json(input_str::String)
     tokens = split(input_str)
     shape = lowercase(tokens[1])
@@ -46,7 +46,7 @@ function parse_input_to_json(input_str::String)
     dict_obj = Dict("shape" => shape, "parameters" => params, "plane" => plane_token, "coordinates" => coords)
     return JSON.json(dict_obj)
 end
-\```
+```
 
 - **Purpose**: Converts command strings into a JSON format that details the shape, its dimensions, positioning plane, and coordinates.
 - **Process**:
