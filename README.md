@@ -1,5 +1,8 @@
-# Parametrix
 
+#                                                                                               Parametrix
+
+
+####  Welcome👋
 Welcome to this repository created for the Parametrix tool. Parametrix teaches parametric designing by combining an approachable, simple to use pixel art design and the Fusion 360 API. Below are the Javascript and Python docs for the Parametrix tool
 
 #### Further Details
