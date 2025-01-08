@@ -18,7 +18,9 @@
   <br/><br/>
 </p>
 
+### What do we have that other Parametric design programms don't
 
+The Parametrix programm provides the resources for parametric designing in an easy to understand way, provides the liberty of imaginative design and to export these as sketches(dxf) or stl files, a native way to send your designs to your printer.
 
 
 
