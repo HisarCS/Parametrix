@@ -1,127 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import ThreeDView from "./ThreeDView";
 import CoordinatePlane from "./CoordinatePlane";
-import { Canvas } from "@react-three/fiber";
 import axios from "axios";
-
-const DEFAULT_EXTRUSION = 1;
-
-const ExtrudedCircle = ({ position, radius, height }) => {
-  return (
-    <mesh position={position}>
-      <cylinderGeometry args={[radius, radius, height, 32]} />
-      <meshStandardMaterial color="blue" />
-    </mesh>
-  );
-};
-
-const ExtrudedRectangle = ({ position, width, height, depth }) => {
-  return (
-    <mesh position={position}>
-      <boxGeometry args={[width, height, depth]} />
-      <meshStandardMaterial color="green" />
-    </mesh>
-  );
-};
-
-const CoordinatePlane3D = () => {
-  const gridSize = 20;
-  const lineMaterial = <lineBasicMaterial color="gray" />;
-
-  return (
-    <group>
-      {/* X-axis */}
-      <line>
-        <bufferGeometry>
-          <bufferAttribute
-            attach="attributes-position"
-            array={new Float32Array([-gridSize, 0, 0, gridSize, 0, 0])}
-            itemSize={3}
-            count={2}
-          />
-        </bufferGeometry>
-        {lineMaterial}
-      </line>
-
-      {/* Y-axis */}
-      <line>
-        <bufferGeometry>
-          <bufferAttribute
-            attach="attributes-position"
-            array={new Float32Array([0, -gridSize, 0, 0, gridSize, 0])}
-            itemSize={3}
-            count={2}
-          />
-        </bufferGeometry>
-        {lineMaterial}
-      </line>
-
-      {/* Z-axis */}
-      <line>
-        <bufferGeometry>
-          <bufferAttribute
-            attach="attributes-position"
-            array={new Float32Array([0, 0, -gridSize, 0, 0, gridSize])}
-            itemSize={3}
-            count={2}
-          />
-        </bufferGeometry>
-        {lineMaterial}
-      </line>
-    </group>
-  );
-};
-
-const ThreeDView = ({ shapes }) => {
-  return (
-    <Canvas camera={{ position: [10, 10, 10], fov: 50 }}>
-      <ambientLight intensity={0.5} />
-      <directionalLight position={[10, 10, 10]} />
-
-      {/* Render coordinate plane */}
-      <CoordinatePlane3D />
-
-      {/* Render shapes */}
-      {shapes.map((shape, index) => {
-        if (shape.shape === "circle") {
-          const { radius } = shape.parameters;
-          const height = shape.extruded ? shape.height || DEFAULT_EXTRUSION : 0.01;
-          const position = [
-            shape.coordinates[0],
-            shape.coordinates[1],
-            shape.coordinates[2] + height / 2,
-          ];
-          return (
-            <ExtrudedCircle
-              key={index}
-              position={position}
-              radius={radius}
-              height={height}
-            />
-          );
-        } else if (shape.shape === "rectangle") {
-          const { width, height } = shape.parameters;
-          const depth = shape.extruded ? shape.height || DEFAULT_EXTRUSION : 0.01;
-          const position = [
-            shape.coordinates[0],
-            shape.coordinates[1],
-            shape.coordinates[2] + depth / 2,
-          ];
-          return (
-            <ExtrudedRectangle
-              key={index}
-              position={position}
-              width={width}
-              height={height}
-              depth={depth}
-            />
-          );
-        }
-        return null;
-      })}
-    </Canvas>
-  );
-};
 
 const ParametrixView = () => {
   const [shapes, setShapes] = useState([]);
@@ -144,7 +25,7 @@ const ParametrixView = () => {
       const shapeData = response.data;
       const shapeName = `${shapeData.shape}_${jsonList.filter(json => json.shape === shapeData.shape).length + 1}`;
 
-      const newJson = { ...shapeData, name: shapeName };
+      const newJson = { ...shapeData, name: shapeName, extruded: false };
       const updatedJsonList = [...jsonList, newJson];
       setJsonList(updatedJsonList);
       setShapes(updatedJsonList);
@@ -201,6 +82,14 @@ const ParametrixView = () => {
     } catch (error) {
       alert("Invalid JSON format. Please fix errors before saving.");
     }
+  };
+
+  const handleExtrude = (index) => {
+    const updatedJsonList = [...jsonList];
+    updatedJsonList[index].extruded = true;
+    setJsonList(updatedJsonList);
+    setShapes(updatedJsonList);
+    localStorage.setItem("jsonList", JSON.stringify(updatedJsonList));
   };
 
   const handleBack = () => {
@@ -424,20 +313,36 @@ const ParametrixView = () => {
                     Save
                   </button>
                 ) : (
-                  <button
-                    style={{
-                      fontFamily: "'Press Start 2P', cursive",
-                      marginTop: "10px",
-                      padding: "10px 20px",
-                      backgroundColor: "#996633",
-                      color: "#f4e2cc",
-                      border: "2px solid #996633",
-                      cursor: "pointer",
-                    }}
-                    onClick={() => handleEditJson(index)}
-                  >
-                    Edit
-                  </button>
+                  <>
+                    <button
+                      style={{
+                        fontFamily: "'Press Start 2P', cursive",
+                        marginTop: "10px",
+                        padding: "10px 20px",
+                        backgroundColor: "#996633",
+                        color: "#f4e2cc",
+                        border: "2px solid #996633",
+                        cursor: "pointer",
+                      }}
+                      onClick={() => handleEditJson(index)}
+                    >
+                      Edit
+                    </button>
+                    <button
+                      style={{
+                        fontFamily: "'Press Start 2P', cursive",
+                        marginTop: "10px",
+                        padding: "10px 20px",
+                        backgroundColor: "#4caf50",
+                        color: "#fff",
+                        border: "2px solid #4caf50",
+                        cursor: "pointer",
+                      }}
+                      onClick={() => handleExtrude(index)}
+                    >
+                      Extrude
+                    </button>
+                  </>
                 )}
               </div>
             ))}
