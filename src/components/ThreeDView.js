@@ -3,18 +3,18 @@ import { Canvas } from "@react-three/fiber";
 
 const DEFAULT_EXTRUSION = 1;
 
-const ExtrudedCircle = ({ position, radius, height }) => {
+const ExtrudedCircle = ({ position, radius, height, rotation }) => {
   return (
-    <mesh position={position}>
+    <mesh position={position} rotation={rotation}>
       <cylinderGeometry args={[radius, radius, height, 32]} />
       <meshStandardMaterial color="blue" />
     </mesh>
   );
 };
 
-const ExtrudedRectangle = ({ position, width, height, depth }) => {
+const ExtrudedRectangle = ({ position, width, height, depth, rotation }) => {
   return (
-    <mesh position={position}>
+    <mesh position={position} rotation={rotation}>
       <boxGeometry args={[width, height, depth]} />
       <meshStandardMaterial color="green" />
     </mesh>
@@ -22,7 +22,8 @@ const ExtrudedRectangle = ({ position, width, height, depth }) => {
 };
 
 const CoordinatePlane3D = () => {
-  const gridSize = 20;
+  const gridSize = 50; // Grid size for the coordinate system
+  const lineLength = gridSize * 2;
 
   return (
     <group>
@@ -31,7 +32,7 @@ const CoordinatePlane3D = () => {
         <bufferGeometry>
           <bufferAttribute
             attach="attributes-position"
-            array={new Float32Array([-gridSize, 0, 0, gridSize, 0, 0])}
+            array={new Float32Array([-lineLength, 0, 0, lineLength, 0, 0])}
             itemSize={3}
             count={2}
           />
@@ -43,7 +44,7 @@ const CoordinatePlane3D = () => {
         <bufferGeometry>
           <bufferAttribute
             attach="attributes-position"
-            array={new Float32Array([0, -gridSize, 0, 0, gridSize, 0])}
+            array={new Float32Array([0, -lineLength, 0, 0, lineLength, 0])}
             itemSize={3}
             count={2}
           />
@@ -55,7 +56,7 @@ const CoordinatePlane3D = () => {
         <bufferGeometry>
           <bufferAttribute
             attach="attributes-position"
-            array={new Float32Array([0, 0, -gridSize, 0, 0, gridSize])}
+            array={new Float32Array([0, 0, -lineLength, 0, 0, lineLength])}
             itemSize={3}
             count={2}
           />
@@ -68,36 +69,58 @@ const CoordinatePlane3D = () => {
 
 const ThreeDView = ({ shapes }) => {
   return (
-    <Canvas camera={{ position: [10, 10, 10], fov: 50 }}>
+    <Canvas camera={{ position: [20, 20, 20], fov: 50 }}>
       <ambientLight intensity={0.5} />
-      <directionalLight position={[10, 10, 10]} />
+      <directionalLight position={[20, 20, 20]} />
       <CoordinatePlane3D />
       {shapes.map((shape, index) => {
         if (shape.extruded) {
-          if (shape.shape === "circle") {
-            const { radius } = shape.parameters;
+          const { coordinates, parameters, plane, shape: shapeType } = shape;
+          const [x, y, z] = coordinates;
+
+          if (shapeType === "circle") {
+            const { radius } = parameters;
             const height = shape.height || DEFAULT_EXTRUSION;
-            const position = [
-              shape.coordinates[0],
-              shape.coordinates[1],
-              shape.coordinates[2] + height / 2,
-            ];
+
+            // Position and rotation based on plane
+            let position = [x, y, z];
+            let rotation = [0, 0, 0];
+            if (plane === "XYConstructionPlane") {
+              position = [x, y,z + height / 2];
+              rotation = [Math.PI / 2, 0, 0]; // Upright
+            } else if (plane === "YZConstructionPlane") {
+              position = [y, z, x + height / 2];
+              rotation = [0, 0, Math.PI / 2]; // Right-facing
+            } else if (plane === "XZConstructionPlane") {
+              position = [x, z + height / 2, y]; // Forward-facing
+            }
+
             return (
               <ExtrudedCircle
                 key={index}
                 position={position}
                 radius={radius}
                 height={height}
+                rotation={rotation}
               />
             );
-          } else if (shape.shape === "rectangle") {
-            const { width, height } = shape.parameters;
-            const depth = shape.height || DEFAULT_EXTRUSION;
-            const position = [
-              shape.coordinates[0],
-              shape.coordinates[1],
-              shape.coordinates[2] + depth / 2,
-            ];
+          } else if (shapeType === "rectangle") {
+            const { width, height } = parameters;
+            const depth = shape.depth || DEFAULT_EXTRUSION;
+
+            // Position and rotation based on plane
+            let position = [x, y, z];
+            let rotation = [0, 0, 0];
+            if (plane === "XZConstructionPlane") {
+              position = [x, z + depth / 2, y];
+              rotation = [Math.PI / 2, 0, 0]; // Upright
+            } else if (plane === "YZConstructionPlane") {
+              position = [z, y, x + depth / 2];
+              rotation = [0, 0, Math.PI / 2]; // Right-facing
+            } else if (plane === "XYConstructionPlane") {
+              position = [x, y, z + depth / 2]; // Forward-facing
+            }
+
             return (
               <ExtrudedRectangle
                 key={index}
@@ -105,6 +128,7 @@ const ThreeDView = ({ shapes }) => {
                 width={width}
                 height={height}
                 depth={depth}
+                rotation={rotation}
               />
             );
           }
