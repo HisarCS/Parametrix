@@ -25,7 +25,7 @@ const ParametrixView = () => {
       const shapeData = response.data;
       const shapeName = `${shapeData.shape}_${jsonList.filter(json => json.shape === shapeData.shape).length + 1}`;
 
-      const newJson = { ...shapeData, name: shapeName, extruded: false };
+      const newJson = { ...shapeData, name: shapeName, extruded: false, extrusionAmount: null };
       const updatedJsonList = [...jsonList, newJson];
       setJsonList(updatedJsonList);
       setShapes(updatedJsonList);
@@ -86,7 +86,12 @@ const ParametrixView = () => {
 
   const handleExtrude = (index) => {
     const updatedJsonList = [...jsonList];
-    updatedJsonList[index].extruded = true;
+    updatedJsonList[index] = {
+      ...updatedJsonList[index],
+      extruded: true,
+      extrusionAmount: updatedJsonList[index].extrusionAmount || 1, // Default extrusion amount
+    };
+
     setJsonList(updatedJsonList);
     setShapes(updatedJsonList);
     localStorage.setItem("jsonList", JSON.stringify(updatedJsonList));
