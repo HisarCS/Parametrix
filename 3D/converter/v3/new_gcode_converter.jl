@@ -1,4 +1,3 @@
-# STL to G-code Generator with Diagonal Grid Infill
 using LinearAlgebra
 
 # STL Parsing
