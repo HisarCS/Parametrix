@@ -15,30 +15,152 @@ const ParametrixView = () => {
   const [activeTab, setActiveTab] = useState("2D");
   const navigate = useNavigate();
 
-  const handleSendPrompt = async () => {
-    if (!prompt.trim()) return;
+  const API_BASE_URL = 'http://127.0.0.1:5001';
 
-    setHistory([...history, `You: ${prompt}`]);
-
+  const checkBackendHealth = async () => {
     try {
-      const response = await axios.post("http://127.0.0.1:5001/process", { command: prompt });
-      const shapeData = response.data;
-      const shapeName = `${shapeData.shape}_${jsonList.filter(json => json.shape === shapeData.shape).length + 1}`;
-
-      const newJson = { ...shapeData, name: shapeName, extruded: false, extrusionAmount: null };
-      const updatedJsonList = [...jsonList, newJson];
-      setJsonList(updatedJsonList);
-      setShapes(updatedJsonList);
-      localStorage.setItem("jsonList", JSON.stringify(updatedJsonList));
-
-      setHistory((prev) => [...prev, `AI: ${JSON.stringify(shapeData, null, 2) || "Error"}`]);
+      const response = await axios.get(`${API_BASE_URL}/health`);
+      return response.data.status === "ok";
     } catch (error) {
-      console.error("Error communicating with backend:", error);
-      setHistory((prev) => [...prev, "Error: Failed to connect to backend."]);
+      console.error('Health check failed:', error);
+      return false;
     }
-
-    setPrompt("");
   };
+  
+  const loadStoredData = () => {
+    try {
+      const stored = localStorage.getItem('jsonList');
+      return stored ? JSON.parse(stored) : [];
+    } catch (error) {
+      console.error('Failed to load stored data:', error);
+      return [];
+    }
+  };
+  
+  const saveToStorage = (data) => {
+    try {
+      localStorage.setItem('jsonList', JSON.stringify(data));
+      return true;
+    } catch (error) {
+      console.error('Failed to save data:', error);
+      return false;
+    }
+  };
+  
+  const generateUniqueName = (baseShape, existingShapes) => {
+    const count = existingShapes.filter(shape => shape.shape === baseShape).length;
+    return `${baseShape}_${count + 1}`;
+  };
+  
+  const getErrorMessage = (error) => {
+    if (error.response) {
+      return error.response.data?.error || 
+             error.response.data || 
+             `Server error: ${error.response.status}`;
+    }
+    if (error.request) {
+      return 'No response from server. Please check your connection.';
+    }
+    return error.message || 'An unexpected error occurred';
+  };
+  
+  // State Management Functions
+  const updateShapesAndStorage = (shapes, setJsonList, setShapes) => {
+    setJsonList(shapes);
+    setShapes(shapes);
+    saveToStorage(shapes);
+  };
+  
+  // Handler Functions
+  const handleSendPrompt = async (
+    prompt,
+    jsonList,
+    setPrompt,
+    setHistory,
+    setJsonList,
+    setShapes,
+    setIsLoading
+  ) => {
+    if (!prompt.trim()) return;
+  
+    setIsLoading(true);
+    setHistory(prev => [...prev, `You: ${prompt}`]);
+  
+    try {
+      const response = await axios.post(
+        `${API_BASE_URL}/process`,
+        { command: prompt },
+        {
+          headers: { 'Content-Type': 'application/json' },
+          timeout: 10000,
+        }
+      );
+  
+      console.log('Backend response:', response.data);
+  
+      if (response.data.error) {
+        throw new Error(response.data.error);
+      }
+  
+      const shapeData = response.data;
+      if (!shapeData.shape) {
+        throw new Error('Invalid shape data received');
+      }
+  
+      const shapeName = generateUniqueName(shapeData.shape, jsonList);
+      const newShape = {
+        ...shapeData,
+        name: shapeName,
+        extruded: false,
+        extrusionAmount: null,
+        created: new Date().toISOString()
+      };
+  
+      const updatedShapes = [...jsonList, newShape];
+      updateShapesAndStorage(updatedShapes, setJsonList, setShapes);
+  
+      setHistory(prev => [
+        ...prev,
+        `AI: Successfully created ${shapeName}`,
+        `Data: ${JSON.stringify(shapeData, null, 2)}`
+      ]);
+  
+    } catch (error) {
+      const errorMessage = getErrorMessage(error);
+      console.error('Command processing failed:', errorMessage);
+      setHistory(prev => [...prev, `Error: ${errorMessage}`]);
+    } finally {
+      setIsLoading(false);
+      setPrompt('');
+    }
+  };
+  
+  const handleKeyPress = (event, handleSendPrompt) => {
+    if (event.key === 'Enter' && !event.shiftKey) {
+      event.preventDefault();
+      handleSendPrompt();
+    }
+  };
+  
+ 
+  
+  const useInitializeComponent = (setHistory, setJsonList, setShapes) => {
+    useEffect(() => {
+      const initComponent = async () => {
+        const isHealthy = await checkBackendHealth();
+        if (!isHealthy) {
+          setHistory(['Warning: Backend service not available']);
+        }
+  
+        const storedData = loadStoredData();
+        setJsonList(storedData);
+        setShapes(storedData);
+      };
+  
+      initComponent();
+    }, [setHistory, setJsonList, setShapes]);
+  };
+  
 
   const handleClear = () => {
     setShapes([]);
