@@ -1,12 +1,118 @@
 import React, { useState } from "react";
 
 const Book2 = ({ initialPages }) => {
-    const defaultPages = [
-        // Page 1: Introduction
-        `Page 1: Table`,
-      ];
-      
-      
+   const defaultPages = [
+     `Page 1: Welcome to Parametrix Tutorial - Creating Circles
+  
+  In this chapter, we'll learn how to create circles using parameters. Circles are fundamental shapes that need different parameters than rectangles.`,
+  
+     `Page 2: Circle Parameters
+  
+  A circle needs just one main dimension:
+  - Radius (distance from center to edge)
+  
+  This is simpler than rectangles which needed width and height. But we still need:
+  - Position (where to place it)
+  - Plane (which surface to draw on)`,
+  
+     `Page 3: Understanding Radius
+  
+  Radius determines circle size:
+  - Larger radius = bigger circle
+  - Smaller radius = smaller circle
+  
+  Think: How would you make a circle with radius 5 units?`,
+  
+     `Page 4: Writing Circle Commands
+  
+  The basic circle command structure:
+  circle <radius> on <plane> at (<x>,<y>,<z>)
+  
+  Example making a circle:
+  - Radius: 5 units
+  - XY plane
+  - At center (0,0,0)
+  
+  Try writing this command...`,
+  
+     `Page 5: The Circle Command
+  
+  Here's the command:
+  circle 5 on XYConstructionPlane at (0,0,0)
+  
+  Notice:
+  - Only one number for radius
+  - Same plane system as rectangle
+  - Same position system as rectangle`,
+  
+     `Page 6: System Response
+  
+  When we create this circle, the system responds:
+  {
+   "shape": "circle",
+   "parameters": {
+     "radius": 5
+   },
+   "plane": "XYConstructionPlane",
+   "coordinates": [0, 0, 0],
+   "name": "circle_1",
+   "extruded": true
+  }`,
+  
+     `Page 7: Breaking Down Circle JSON
+  
+  Let's analyze each part:
+  
+  Shape Info:
+  - Type is now "circle"
+  - Gets unique name "circle_1"
+  
+  Parameters:
+  - Single "radius" value
+  - No width/height needed
+  
+  Position:
+  - Same XY plane
+  - Same coordinate system`,
+  
+     `Page 8: Practice Task
+  
+  Your turn! Create:
+  - Circle with radius 3
+  - On XY plane
+  - 2 units up from center
+  
+  Write your command before continuing...`,
+  
+     `Page 9: Practice Solution
+  
+  Command should be:
+  circle 3 on XYConstructionPlane at (0,0,2)
+  
+  System response:
+  {
+   "shape": "circle",
+   "parameters": {
+     "radius": 3
+   },
+   "plane": "XYConstructionPlane",
+   "coordinates": [0, 0, 2],
+   "name": "circle_1",
+   "extruded": true
+  }`,
+  
+     `Page 10: Circle vs Rectangle
+  
+  Key differences learned:
+  - Circle uses radius instead of width/height
+  - Circle commands are shorter
+  - Circle JSON has simpler parameters
+  - Both use same plane and position system
+  
+  Ready to combine shapes in next tutorial!`
+   ];
+  
+
       
       
       
