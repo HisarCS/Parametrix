@@ -72,16 +72,8 @@ const ParametrixView = () => {
   };
   
   // Handler Functions
-  const handleSendPrompt = async (
-    prompt,
-    jsonList,
-    setPrompt,
-    setHistory,
-    setJsonList,
-    setShapes,
-    setIsLoading
-  ) => {
-    if (!prompt.trim()) return;
+  const handleSendPrompt = async () => {
+    if (!prompt || !prompt.trim()) return;
   
     setIsLoading(true);
     setHistory(prev => [...prev, `You: ${prompt}`]);
@@ -135,6 +127,8 @@ const ParametrixView = () => {
     }
   };
   
+  // Add isLoading state
+  const [isLoading, setIsLoading] = useState(false);
   const handleKeyPress = (event, handleSendPrompt) => {
     if (event.key === 'Enter' && !event.shiftKey) {
       event.preventDefault();
