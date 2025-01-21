@@ -7,7 +7,7 @@
   <b> <b><a href="https://github.com/HisarCS/Parametrix/tree/main/OpenSourceDocs">Documentation</a></b> | <b><a href="https://github.com/HisarCS">GitHub</a></b>
   <br/><br/>
   <a href="https://github.com/HisarCS/Parametrix/blob/main/CHANGELOG.md">
-    <img src="https://img.shields.io/badge/Version-v0.0.2-609966?logo=hackthebox&logoColor=fff" alt="Current Version"/>
+    <img src="https://img.shields.io/badge/Version-v0.0.4-609966?logo=hackthebox&logoColor=fff" alt="Current Version"/>
   </a>
   <a target="_blank" href="https://github.com/HisarCS/Parametrix">
     <img src="https://img.shields.io/github/last-commit/HisarCS/Parametrix?logo=github&color=609966&logoColor=fff" alt="Last commit"/>
