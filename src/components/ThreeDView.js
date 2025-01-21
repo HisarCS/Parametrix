@@ -22,7 +22,7 @@ const ExtrudedRectangle = ({ position, width, height, depth, rotation }) => {
 };
 
 const CoordinatePlane3D = () => {
-  const gridSize = 50; // Grid size for the coordinate system
+  const gridSize = 50;
   const lineLength = gridSize * 2;
 
   return (
@@ -82,17 +82,26 @@ const ThreeDView = ({ shapes }) => {
             const { radius } = parameters;
             const height = shape.height || DEFAULT_EXTRUSION;
 
-            // Position and rotation based on plane
+            // Calculate position and rotation based on plane and extrusion
             let position = [x, y, z];
             let rotation = [0, 0, 0];
-            if (plane === "XYConstructionPlane") {
-              position = [x, y,z + height / 2];
-              rotation = [Math.PI / 2, 0, 0]; // Upright
-            } else if (plane === "YZConstructionPlane") {
-              position = [y, z, x + height / 2];
-              rotation = [0, 0, Math.PI / 2]; // Right-facing
-            } else if (plane === "XZConstructionPlane") {
-              position = [x, z + height / 2, y]; // Forward-facing
+            
+            switch (plane) {
+              case "XYConstructionPlane":
+                // Extrude along Z axis
+                position = [x, y, z + (height / 2)];
+                rotation = [Math.PI / 2, 0, 0];
+                break;
+              case "YZConstructionPlane":
+                // Extrude along X axis
+                position = [x + (height / 2), y, z];
+                rotation = [0, 0, Math.PI / 2];
+                break;
+              case "XZConstructionPlane":
+                // Extrude along Y axis
+                position = [x, y + (height / 2), z];
+                rotation = [0, 0, 0];
+                break;
             }
 
             return (
@@ -105,20 +114,29 @@ const ThreeDView = ({ shapes }) => {
               />
             );
           } else if (shapeType === "rectangle") {
-            const { width, height } = parameters;
+            const { width, height: rectHeight } = parameters;
             const depth = shape.depth || DEFAULT_EXTRUSION;
 
-            // Position and rotation based on plane
+            // Calculate position and rotation based on plane and extrusion
             let position = [x, y, z];
             let rotation = [0, 0, 0];
-            if (plane === "XZConstructionPlane") {
-              position = [x, z + depth / 2, y];
-              rotation = [Math.PI / 2, 0, 0]; // Upright
-            } else if (plane === "YZConstructionPlane") {
-              position = [z, y, x + depth / 2];
-              rotation = [0, 0, Math.PI / 2]; // Right-facing
-            } else if (plane === "XYConstructionPlane") {
-              position = [x, y, z + depth / 2]; // Forward-facing
+            
+            switch (plane) {
+              case "XYConstructionPlane":
+                // Extrude along Z axis
+                position = [x, y, z + (depth / 2)];
+                rotation = [0, 0, 0];
+                break;
+              case "YZConstructionPlane":
+                // Extrude along X axis
+                position = [x + (depth / 2), y, z];
+                rotation = [0, 0, Math.PI / 2];
+                break;
+              case "XZConstructionPlane":
+                // Extrude along Y axis
+                position = [x, y + (depth / 2), z];
+                rotation = [Math.PI / 2, 0, 0];
+                break;
             }
 
             return (
@@ -126,7 +144,7 @@ const ThreeDView = ({ shapes }) => {
                 key={index}
                 position={position}
                 width={width}
-                height={height}
+                height={rectHeight}
                 depth={depth}
                 rotation={rotation}
               />
