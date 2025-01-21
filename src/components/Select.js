@@ -62,7 +62,7 @@ const Select = () => {
 
       {/* Back Button */}
       <button
-        onClick={() => navigate(-1)}
+        onClick={() => navigate("/split")}
         style={{
           marginTop: "40px",
           padding: "10px 20px",
@@ -110,6 +110,7 @@ const Select = () => {
           e.target.style.boxShadow = "none";
           e.target.style.transform = "scale(1)";
         }}
+        onClick={() => navigate("/w")}
       >
         Wildcard
       </button>
