@@ -44,7 +44,7 @@ const SplitSelection = () => {
             e.target.style.color = "#996633";
             e.target.style.transform = "scale(1)";
           }}
-          onClick={() => navigate("/parametrix")} // Navigate to Parametrix view
+          onClick={() => navigate("/parametrix")}  // Navigate to Parametrix view
         >
           Parametrix
         </button>
@@ -82,7 +82,7 @@ const SplitSelection = () => {
             e.target.style.color = "white";
             e.target.style.transform = "scale(1)";
           }}
-          onClick={() => alert("Tutorials Selected")}
+          onClick={() => navigate("/levelselection")}
         >
           Tutorials
         </button>
@@ -122,3 +122,5 @@ const SplitSelection = () => {
 };
 
 export default SplitSelection;
+
+
