@@ -70,6 +70,138 @@ const ParametrixView = () => {
     setShapes(shapes);
     saveToStorage(shapes);
   };
+
+  const handleConvertToDXF = async () => {
+    if (jsonList.length === 0) {
+      setHistory(prev => [...prev, "Error: No shapes to convert"]);
+      return;
+    }
+  
+    setIsLoading(true);
+    try {
+      const response = await axios({
+        method: 'post',
+        url: 'http://127.0.0.1:8080/generate_dxf',
+        data: { shapes: jsonList },
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': '*/*'
+        },
+        responseType: 'blob',
+        timeout: 30000, // Increased timeout
+        withCredentials: false // Important for CORS
+      });
+  
+      // Handle the downloaded file
+      const blob = new Blob([response.data], { 
+        type: 'application/octet-stream' 
+      });
+      
+      // Create download
+      const url = window.URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      
+      // Get filename from headers or generate one
+      const filename = response.headers['content-disposition']
+        ? response.headers['content-disposition'].split('filename=')[1].replace(/"/g, '')
+        : `parametrix_shapes_${Date.now()}.dxf`;
+        
+      link.href = url;
+      link.download = filename;
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+      window.URL.revokeObjectURL(url);
+  
+      setHistory(prev => [...prev, "Successfully converted shapes to DXF"]);
+    } catch (error) {
+      console.error('DXF conversion error:', error);
+      let errorMessage = "Failed to convert to DXF: ";
+      
+      if (error.response) {
+        // Server responded with error
+        errorMessage += error.response.data?.error || error.response.statusText;
+      } else if (error.request) {
+        // No response received
+        errorMessage += "No response from server. Please check your connection.";
+      } else {
+        // Request setup error
+        errorMessage += error.message;
+      }
+      
+      setHistory(prev => [...prev, `Error: ${errorMessage}`]);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handleConvertToSTL = async () => {
+    if (jsonList.length === 0) {
+      setHistory(prev => [...prev, "Error: No shapes to convert"]);
+      return;
+    }
+  
+    setIsLoading(true);
+    try {
+      // Transform the data to match Julia's expectations AND wrap in shapes object
+      const transformedShapes = {
+        shapes: jsonList.map(shape => ({
+          ...shape,
+          extrusion_amount: shape.extrusionAmount,
+          coordinates: shape.coordinates,
+          parameters: shape.parameters,
+          shape: shape.shape
+        }))
+      };
+  
+      // Log the transformed data for debugging
+      console.log('Sending data:', JSON.stringify(transformedShapes, null, 2));
+  
+      const response = await axios({
+        method: 'post',
+        url: 'http://127.0.0.1:8080/generate_stl',
+        data: transformedShapes,  // Now properly wrapped in {shapes: [...]}
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': '*/*'
+        },
+        responseType: 'blob',
+        timeout: 30000
+      });
+  
+      const blob = new Blob([response.data], { 
+        type: 'application/octet-stream'
+      });
+      
+      const url = window.URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      const filename = `parametrix_shapes_${Date.now()}.stl`;
+      
+      link.href = url;
+      link.download = filename;
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+      window.URL.revokeObjectURL(url);
+  
+      setHistory(prev => [...prev, "Successfully converted shapes to STL"]);
+    } catch (error) {
+      console.error('STL conversion error:', error);
+      let errorMessage = "Failed to convert to STL: ";
+      
+      if (error.response) {
+        errorMessage += error.response.data?.error || error.response.statusText;
+      } else if (error.request) {
+        errorMessage += "No response from server. Please check your connection.";
+      } else {
+        errorMessage += error.message;
+      }
+      
+      setHistory(prev => [...prev, `Error: ${errorMessage}`]);
+    } finally {
+      setIsLoading(false);
+    }
+  };
   
   // Handler Functions
   const handleSendPrompt = async () => {
@@ -229,21 +361,77 @@ const ParametrixView = () => {
     >
       <div style={{ display: "flex", justifyContent: "space-between", padding: "10px", backgroundColor: "#996633" }}>
         <h1 style={{ fontSize: "1.2rem", color: "#f4e2cc" }}>Parametrix View</h1>
-        <button
-          style={{
-            fontFamily: "'Press Start 2P', cursive",
-            padding: "10px 20px",
-            fontSize: "1rem",
-            backgroundColor: "transparent",
-            color: "#f4e2cc",
-            border: "2px solid #f4e2cc",
-            cursor: "pointer",
-          }}
-          onClick={openJsonModal}
-        >
-          📄
-        </button>
+        <div style={{justifyContent: "space-between"}}>
+          <button
+            style={{
+              fontFamily: "'Press Start 2P', cursive",
+              padding: "10px 20px",
+              fontSize: "1rem",
+              backgroundColor: "transparent",
+              color: "#f4e2cc",
+              border: "2px solid #f4e2cc",
+              cursor: "pointer",
+              marginRight: "5px"
+            }}
+          >
+            3D
+          </button>
+          
+          <button
+            style={{
+              fontFamily: "'Press Start 2P', cursive",
+              padding: "10px 20px",
+              fontSize: "1rem",
+              backgroundColor: "transparent",
+              color: "#f4e2cc",
+              border: "2px solid #f4e2cc",
+              cursor: isLoading ? "not-allowed" : "pointer",
+              opacity: isLoading ? 0.7 : 1,
+              marginRight: "5px"
+            }}
+            onClick={handleConvertToDXF}
+            disabled={isLoading}
+            title="Convert all shapes to DXF"
+          >
+            {isLoading ? "Converting..." : "DXF"}
+          </button>
+          
+          <button
+            style={{
+              fontFamily: "'Press Start 2P', cursive",
+              padding: "10px 20px",
+              fontSize: "1rem",
+              backgroundColor: "transparent",
+              color: "#f4e2cc",
+              border: "2px solid #f4e2cc",
+              cursor: isLoading ? "not-allowed" : "pointer",
+              opacity: isLoading ? 0.7 : 1,
+              marginRight: "5px"
+            }}
+            onClick={handleConvertToSTL}
+            disabled={isLoading}
+            title="Convert all shapes to STL"
+          >
+            {isLoading ? "Converting..." : "STL"}
+          </button>
+          
+          <button
+            style={{
+              fontFamily: "'Press Start 2P', cursive",
+              padding: "10px 20px",
+              fontSize: "1rem",
+              backgroundColor: "transparent",
+              color: "#f4e2cc",
+              border: "2px solid #f4e2cc",
+              cursor: "pointer",
+            }}
+            onClick={openJsonModal}
+          >
+            📄
+          </button>
+        </div>
       </div>
+
 
       <div style={{ display: "flex", flex: 1 }}>
         <div style={{ flex: 1, padding: "20px", borderRight: "2px solid #996633" }}>
