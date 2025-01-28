@@ -1,11 +1,11 @@
-Summary: 
+## Summary: 
 
-Description:
+## Description
 
-Type: 
+### Type: 
 
-Attributes: 
+### Attributes: 
 
-Acceptance Criteria: 
+### Acceptance Criteria: 
 
-Priority: 
+### Priority: 
