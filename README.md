@@ -42,22 +42,32 @@ The system architecture focuses on a seamless interaction between the frontend a
 
 Below are the photos for the interfaces of the website(the code is explained in other sections:
 
-### Main interface
+### Welcome Page
 
-<img width="794" alt="Ekran Resmi 2025-01-04 18 26 47" src="https://github.com/user-attachments/assets/fbaf3d03-5061-4fc0-a8b2-f51a1b17d1f4" />
-
+<img width="1680" alt="Ekran Resmi 2025-01-28 09 57 31" src="https://github.com/user-attachments/assets/330d6700-3766-47fb-a25c-5cf96aa07301" />
 
 ### Selection View
-<img width="1680" alt="Ekran Resmi 2025-01-03 10 22 57" src="https://github.com/user-attachments/assets/776fe78d-fbff-4c4c-80e2-a8327490fb32" />
+<img width="1680" alt="Ekran Resmi 2025-01-28 09 57 44" src="https://github.com/user-attachments/assets/0bcd62a0-ab48-4491-a20e-e28d25d603cc" />
 
 
-### Main user interface
-<img width="1680" alt="Ekran Resmi 2025-01-03 10 23 44" src="https://github.com/user-attachments/assets/b7d1f764-8164-4a84-be3c-02f49801787a" />
+### Playground interface
+<img width="1680" alt="Ekran Resmi 2025-01-28 09 58 04" src="https://github.com/user-attachments/assets/9c25626c-862f-49d5-951e-d5e90a87dcbb" />
 
-### Level Selection Interface
+### Custom JSON Viewer
 
-<img width="787" alt="Ekran Resmi 2025-01-04 18 27 39" src="https://github.com/user-attachments/assets/b80aeb06-f7cd-43b0-a981-20697f4c88d4" />
+<img width="1484" alt="Ekran Resmi 2025-01-28 10 02 31" src="https://github.com/user-attachments/assets/68db33b5-d49d-4d9e-9717-896e8bbcf92f" />
+
+### Tutorial Selection Interface
+
+<img width="1680" alt="Ekran Resmi 2025-01-28 09 58 59" src="https://github.com/user-attachments/assets/da09e7ab-f3c2-44ad-9db5-f9809b3c3098" />
 
 ### Sample Tutorial Interface
 
-<img width="1680" alt="Ekran Resmi 2025-01-04 19 08 14" src="https://github.com/user-attachments/assets/25f38b4e-e881-4b30-992f-65062384478f" />
+<img width="1680" alt="Ekran Resmi 2025-01-28 09 59 25" src="https://github.com/user-attachments/assets/0dd5c7a5-85b3-4427-9839-f2def5fa9557" />
+
+### Sample Tutorial Booklet
+
+<img width="436" alt="Ekran Resmi 2025-01-28 10 00 29" src="https://github.com/user-attachments/assets/a8ae8fc5-40f5-4a41-9fb8-9a5aa4bc2756" />
+
+
+
