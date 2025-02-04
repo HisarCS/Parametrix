@@ -1,6 +1,6 @@
 <h1 align="center">Parametrix</h1>
 <p align="center">
-  <i>Parametrix: a novel approach to teaching parametric designing</i>
+  <i>Parametrix: a novel OPEN SOURCE approach to teaching parametric designing to K12 and Digital Fab. Students</i>
   <br/><br/>
 <img width="250" alt="Screenshot 2025-01-07 at 19 20 47" src="https://github.com/user-attachments/assets/8b00dfb3-efb5-4c76-9230-70937b65b232" />
   <br/><br/>
