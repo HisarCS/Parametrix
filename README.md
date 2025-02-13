@@ -19,7 +19,7 @@
 </p>
 
 ### Coming Soon...
-https://github.com/EmreDay1/Aqui check this out.)
+https://github.com/EmreDay1/Aqui check this out.): a new programming language for programmers who want to experiment with Parametric Designing
 
 ### What do we have that other Parametric design programms don't
 
