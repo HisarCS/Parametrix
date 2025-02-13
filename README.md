@@ -18,6 +18,10 @@
   <br/><br/>
 </p>
 
+### Contributing, Joining the Project
+Contact emre.dayangac@hisarschool.k12.tr or sedat.yalcin@hisarschool.k12.tr or emreday01@gmail.com for more information.
+
+
 ### Coming Soon...
 https://github.com/EmreDay1/Aqui check this out.): a new programming language for programmers who want to experiment with Parametric Designing
 
