@@ -36,7 +36,7 @@ Welcome to this repository created for the Parametrix tool. Parametrix teaches p
 
 #### Further Details
 
-This is a completely open source project so if you want to add something or make a suggestion just send a pull up request.) If you want to learn more you can visit the OpenSourceDocs folder
+This is a completely open-source project so if you want to add something or make a suggestion just send a pull up request.) If you want to learn more you can visit the OpenSourceDocs folder
 
 ### Description
 
