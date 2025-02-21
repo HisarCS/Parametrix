@@ -1,0 +1,33 @@
+# Core React packages
+npm install react@19.0.0 react-dom@19.0.0 react-scripts@5.0.1 react-router-dom@6.15.0
+
+# Testing libraries
+npm install @testing-library/react@14.0.0 @testing-library/jest-dom@6.1.3 @testing-library/user-event@14.5.1
+
+# Visualization and 3D
+npm install @react-three/fiber@9.0.0-rc.4 recharts@2.8.0
+
+# Data handling and utilities
+npm install axios@1.5.0 lodash@4.17.21 mathjs@11.11.0 papaparse@5.4.1 xlsx@0.18.5
+
+# UI Components
+npm install lucide-react@0.263.1
+
+pip install flask==2.3.3
+pip install flask-cors==4.0.0
+pip install transformers==4.33.1
+pip install numpy==1.25.2
+pip install torch==2.0.1
+pip install requests==2.31.0
+pip install python-dotenv==1.0.0
+
+using Pkg
+
+# Add each package individually
+Pkg.add("HTTP")
+Pkg.add("JSON3")
+Pkg.add("LinearAlgebra")
+Pkg.add("Dates")
+
+# Or add all at once
+Pkg.add(["HTTP", "JSON3", "LinearAlgebra", "Dates"])
