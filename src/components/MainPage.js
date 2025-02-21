@@ -75,7 +75,7 @@ const MainPage = () => {
           animation: "blink 2s infinite",
         },
       },
-      "Press Enter to Start"
+      "Press Start to Enter"
     )
   );
 };
