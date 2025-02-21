@@ -26,7 +26,7 @@ os.makedirs(COMMANDS_DIR, exist_ok=True)
 # Model configuration
 MODEL_CONFIG = {
     "token": "A_TOKEN",
-    "model_name": "fine_tuned_model"
+    "model_name": "ftm"
 }
 
 def initialize_model():
