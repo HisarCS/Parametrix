@@ -57,7 +57,7 @@ const SplitSelection = () => {
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
-          backgroundColor: "black",
+          backgroundColor: "#FDF4E7",
           position: "relative", // Enables absolute positioning for the Back button
         }}
       >
@@ -66,19 +66,19 @@ const SplitSelection = () => {
             fontSize: "2rem",
             fontFamily: "'Press Start 2P'",
             color: "white",
-            backgroundColor: "black",
-            border: "3px solid white",
+            backgroundColor: "#0000F5",
+            border: "3px solid black",
             padding: "20px 40px",
             cursor: "pointer",
             transition: "transform 0.3s, background-color 0.3s, color 0.3s",
           }}
           onMouseEnter={(e) => {
             e.target.style.backgroundColor = "white";
-            e.target.style.color = "black";
+            e.target.style.color = "#0000F5";
             e.target.style.transform = "scale(1.1)";
           }}
           onMouseLeave={(e) => {
-            e.target.style.backgroundColor = "black";
+            e.target.style.backgroundColor = "#0000F5";
             e.target.style.color = "white";
             e.target.style.transform = "scale(1)";
           }}
@@ -95,21 +95,21 @@ const SplitSelection = () => {
             right: "20px", // Positioned at the right
             fontSize: "1rem",
             fontFamily: "'Press Start 2P'",
-            color: "black",
-            backgroundColor: "white",
-            border: "3px solid white",
+            color: "white",
+            backgroundColor: "#0000F5",
+            border: "3px solid black",
             padding: "10px 20px",
             cursor: "pointer",
             transition: "transform 0.3s, background-color 0.3s, color 0.3s",
           }}
           onMouseEnter={(e) => {
-            e.target.style.backgroundColor = "cyan";
-            e.target.style.color = "black";
+            e.target.style.backgroundColor = "white";
+            e.target.style.color = "#0000F5";
             e.target.style.transform = "scale(1.1)";
           }}
           onMouseLeave={(e) => {
-            e.target.style.backgroundColor = "white";
-            e.target.style.color = "black";
+            e.target.style.backgroundColor = "#0000F5";
+            e.target.style.color = "white";
             e.target.style.transform = "scale(1)";
           }}
           onClick={() => navigate("/")} // Navigate back to the start page
