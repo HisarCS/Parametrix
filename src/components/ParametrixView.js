@@ -360,7 +360,7 @@ const ParametrixView = () => {
       }}
     >
       <div style={{ display: "flex", justifyContent: "space-between", padding: "10px", backgroundColor: "#996633" }}>
-        <h1 style={{ fontSize: "1.2rem", color: "#f4e2cc" }}>Parametrix View</h1>
+        <h1 style={{ fontSize: "1.2rem", color: "#f4e2cc" }}>Parametrix</h1>
         <div style={{justifyContent: "space-between"}}>
           <button
             style={{
@@ -516,6 +516,7 @@ const ParametrixView = () => {
                 color: activeTab === "2D" ? "#f4e2cc" : "#996633",
                 border: "2px solid #996633",
                 cursor: "pointer",
+                fontFamily: "'Press Start 2P', cursive"
               }}
               onClick={() => setActiveTab("2D")}
             >
@@ -529,11 +530,14 @@ const ParametrixView = () => {
                 color: activeTab === "3D" ? "#f4e2cc" : "#996633",
                 border: "2px solid #996633",
                 cursor: "pointer",
+                fontFamily: "'Press Start 2P', cursive"
               }}
               onClick={() => setActiveTab("3D")}
             >
               3D View
             </button>
+
+            
           </div>
           {activeTab === "2D" ? (
             <CoordinatePlane shapes={shapes} />
