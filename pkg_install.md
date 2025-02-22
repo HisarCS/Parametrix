@@ -59,12 +59,6 @@ Provides Lucide icons for React applications.
 
 ## Backend Setup (Python/Flask)
 
-Create a virtual environment first:
-```bash
-python -m venv venv
-source venv/bin/activate  # On Windows use: venv\Scripts\activate
-```
-
 Install Python packages:
 ```bash
 pip install flask==2.3.3
