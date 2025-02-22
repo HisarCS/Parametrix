@@ -6,6 +6,15 @@ Ensure you have the following installed:
 - Python 3.8 or higher
 - Julia 1.6 or higher
 
+## Initial Repository Setup
+
+Clone the repository from Github:
+```bash
+git clone https://github.com/EmreDay1/Parametrix.git
+cd Parametrix/src
+```
+Delete all other folders- if you want to- since they aren't necessary for the app, but exist for storage reasons.
+
 ## Frontend Setup (React)
 
 ### Core React Packages
@@ -117,4 +126,27 @@ After installation, verify the setup:
 2. Python: Start Flask server and verify endpoints
 3. Julia: Test package imports in REPL
 
-Contact support or check documentation if you encounter any issues during installation.
+## Launch
+
+After pkg + code installations run these commands in order to launch the app properly- wait a couple minutes for servers to fully work sometimes issues may happen-.
+
+```bash
+cd src
+julia rest.jl
+```
+
+```bash
+cd src
+python model.py
+```
+
+```bash
+cd src
+npm start
+```
+
+
+## Contact support
+Contact support @ emre.dayangac@hisarschool.k12.tr or emreday01@gmail.com
+
+
