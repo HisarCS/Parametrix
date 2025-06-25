@@ -22,8 +22,8 @@
 Contact emre.dayangac@hisarschool.k12.tr or sedat.yalcin@hisarschool.k12.tr or emreday01@gmail.com for more information.
 
 
-### Next Step of this project
-https://github.com/HisarCS/Aqui check this out.): a new programming language built to be the next step of Parametrix's goal of teaching Parametric Design in K12 and Digital Fabrication Education while promoting computational skills as well. Hope you enjoy.
+## Next Step of this project
+https://github.com/HisarCS/Aqui check this out.): a new programming language and design envrionment built to be the next step of Parametrix's goal of teaching Parametric Design in K12 and Digital Fabrication Education while promoting computational skills as well. Hope you enjoy.
 
 ### What do we have that other Parametric design programms don't
 
